@@ -9,12 +9,10 @@
     </div>
     <div v-else>
       <div v-for="project in projects" :key="project._id" class="card">
-        <NuxtLink :to="getProjectLink(project._id)">
-          <div class="project-card">
-            {{ project.name }}
-          </div>
+        <NuxtLink :to="getProjectLink(project._id)" class="project-name-label">
+          {{ project.name }}
         </NuxtLink>
-        <div @click="removeProject(project._id)">
+        <div class="remove-project-button" @click="removeProject(project._id)">
           X
         </div>
       </div>
@@ -25,7 +23,7 @@
     <div v-if="showForm">
       <ProjectForm />
     </div>
-  </div> 
+  </div>
 </template>
 
 <script lang="ts">
@@ -36,7 +34,7 @@ export default defineComponent({
   setup () {
     const { getProjects, isLoading, isError, fetchProjects, isFormOpen, toggleForm, removeProject } = useProjects()
 
-    function getProjectLink(id: string) {
+    function getProjectLink (id: string) {
       return 'project/' + id
     }
 
@@ -56,4 +54,16 @@ export default defineComponent({
 </script>
 
 <style>
+
+.card {
+  height: 35px;
+}
+
+.project-name-label {
+  display: inline-block;
+}
+
+.remove-project-button {
+  display: inline-block;
+}
 </style>
