@@ -8,8 +8,8 @@
       {{ error }}
     </div>
     <div v-else>
-      <div class='card' v-for="project in projects" :key="project._id">
-        <NuxtLink :to="{name: 'project', id: project._id}">
+      <div v-for="project in projects" :key="project._id" class="card">
+        <NuxtLink :to="getProjectLink(project._id)">
           <div class="project-card">
             {{ project.name }}
           </div>
@@ -33,8 +33,12 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import useProjects from '~/composables/useProjects'
 
 export default defineComponent({
-  setup (s) {
+  setup () {
     const { getProjects, isLoading, isError, fetchProjects, isFormOpen, toggleForm, removeProject } = useProjects()
+
+    function getProjectLink(id: string) {
+      return 'project/' + id
+    }
 
     fetchProjects()
 
@@ -44,7 +48,8 @@ export default defineComponent({
       error: isError,
       showProjectForm: toggleForm,
       showForm: isFormOpen,
-      removeProject
+      removeProject,
+      getProjectLink
     }
   }
 })
