@@ -18,9 +18,9 @@
           <NuxtLink :to="getProjectLink(project._id)" class="card-footer-item">
             Edit
           </NuxtLink>
-          <div class="card-footer-item" @click="removeProject(project._id)">
+          <a href="#" class="card-footer-item" @click="removeProject(project._id)">
             Delete
-          </div>
+          </a>
         </div>
       </div>
     </div>
