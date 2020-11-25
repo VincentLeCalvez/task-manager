@@ -40,7 +40,7 @@ export default function useProjects () {
   const removeProject = (id: string) => {
     state.loading = true
     Dialog.confirm({
-      message: 'Vraiment',
+      message: 'Supprimer ?',
       onConfirm: async () => {
         const res = await removeOne(collection, id)
         projects.value = projects.value.filter(p => p._id !== res.data.data._id)

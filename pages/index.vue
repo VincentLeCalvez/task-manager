@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <b-button v-if="!isFormOpen" class="open-form-button" @click="showProjectForm">
+    <b-button v-if="!showForm" class="open-form-button" @click="showProjectForm">
       New Project
     </b-button>
     <div v-if="showForm">
@@ -51,7 +51,6 @@ export default defineComponent({
       projects: getProjects,
       loading: isLoading,
       error: isError,
-      isFormOpen: isFormOpen.value,
       showProjectForm: toggleForm,
       showForm: isFormOpen,
       removeProject,
