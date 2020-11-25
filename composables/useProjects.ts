@@ -3,6 +3,8 @@ import { ref, computed, reactive } from '@nuxtjs/composition-api'
 import { Project } from '@/models/Project'
 import { search, searchOne, post, removeOne } from '@/utils/crud'
 
+import { DialogProgrammatic as Dialog } from 'buefy'
+
 const projects = ref<Project[]>([])
 const project = ref({})
 
@@ -35,11 +37,16 @@ export default function useProjects () {
     })
   }
 
-  const removeProject = async (id: string) => {
+  const removeProject = (id: string) => {
     state.loading = true
-    const res = await removeOne(collection, id)
-    projects.value = projects.value.filter(p => p._id !== res.data.data._id)
-    state.loading = false
+    Dialog.confirm({
+      message: 'Vraiment',
+      onConfirm: async () => {
+        const res = await removeOne(collection, id)
+        projects.value = projects.value.filter(p => p._id !== res.data.data._id)
+        state.loading = false
+      }
+    })
   }
 
   const postProject = async (params: {}) => {

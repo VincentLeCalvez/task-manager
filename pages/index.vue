@@ -1,23 +1,30 @@
 <template>
   <div class="home">
-    <h1>projects overview</h1>
+    <h1 class="title is-1">
+      Projects overview
+    </h1>
     <div v-if="loading">
       Loading projects from server
     </div>
     <div v-if="error">
       {{ error }}
     </div>
-    <div v-else>
+    <div v-else class="card-wrapper">
       <div v-for="project in projects" :key="project._id" class="card">
-        <NuxtLink :to="getProjectLink(project._id)" class="project-name-label">
+        <div class="card-content">
           {{ project.name }}
-        </NuxtLink>
-        <div class="remove-project-button" @click="removeProject(project._id)">
-          X
+        </div>
+        <div class="card-footer">
+          <NuxtLink :to="getProjectLink(project._id)" class="card-footer-item">
+            Edit
+          </NuxtLink>
+          <div class="card-footer-item" @click="removeProject(project._id)">
+            Delete
+          </div>
         </div>
       </div>
     </div>
-    <b-button @click="showProjectForm">
+    <b-button v-if="!isFormOpen" class="open-form-button" @click="showProjectForm">
       New Project
     </b-button>
     <div v-if="showForm">
@@ -44,6 +51,7 @@ export default defineComponent({
       projects: getProjects,
       loading: isLoading,
       error: isError,
+      isFormOpen: isFormOpen.value,
       showProjectForm: toggleForm,
       showForm: isFormOpen,
       removeProject,
@@ -55,15 +63,23 @@ export default defineComponent({
 
 <style>
 
+h1 {
+  text-align: center;
+}
+
+.card-wrapper {
+  width: 100%;
+  margin: 0 auto
+}
+
 .card {
-  height: 35px;
-}
-
-.project-name-label {
+  width: 20%;
+  margin: 10px 20px;
   display: inline-block;
 }
 
-.remove-project-button {
-  display: inline-block;
+.open-form-button {
+  margin: 20px
 }
+
 </style>

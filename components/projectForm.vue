@@ -1,13 +1,17 @@
 <template>
   <div>
     <form @submit.prevent="createNewProject">
-      <label for="name">Nom du projet</label>
-      <input v-model="name" type="text">
-      <label for="description">Description du projet</label>
-      <input v-model="description" type="text">
-      <button type="submit">
-        Valider
-      </button>
+      <b-field label="Nom">
+        <b-input v-model="name" type="text" />
+      </b-field>
+      <b-field label="Decription" type="textarea">
+        <b-input v-model="description" type="text" />
+      </b-field>
+      <b-button
+        tag="input"
+        native-type="submit"
+        value="Créer"
+      />
     </form>
   </div>
 </template>
@@ -38,3 +42,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+  form {
+    width: 45%;
+    margin: 30px auto;
+  }
+</style>
