@@ -29,10 +29,6 @@ export default function useTasks () {
     state.loading = false
   }
 
-  const getTasks = computed(() => tasks.value)
-  const isLoading = computed(() => state.loading)
-  const isError = computed(() => state.error)
-
   const postTask = async (params: {}) => {
     const res = await post(collection, params)
     tasks.value.push(res.data.data)
@@ -41,8 +37,12 @@ export default function useTasks () {
   const updateTask = async (id: string, params: {}) => {
     const res = await updateOne(collection, id, params)
     const idx = tasks.value.findIndex(t => t._id === res.data.data._id)
-    tasks.value[idx] = res.data
+    tasks.value[idx] = res.data.data
   }
+
+  const getTasks = computed(() => tasks.value)
+  const isLoading = computed(() => state.loading)
+  const isError = computed(() => state.error)
 
   return {
     getTasks,

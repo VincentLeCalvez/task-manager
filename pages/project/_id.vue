@@ -12,15 +12,17 @@
           <div class="title is-4">
             {{ task.name }}
           </div>
-          <div class="subtitle is-6">
-            {{ task.status }}
-          </div>
         </div>
         <div class="card-footer">
-          <a href="#" class="card-footer-item" @click="switchTask(task._id)">
-            Edit
-          </a>
-          <a href="#" class="card-footer-item" @click="removeTask(task._id)">
+          <b-switch v-model="task.status" class="card-footer-item" @change.native="switchTask(task._id, task.status)">
+            <div v-if="task.status">
+              DONE
+            </div>
+            <div v-else>
+              TODO
+            </div>
+          </b-switch>
+          <a href="#" class="card-footer-item" @click="removeTask(task._id, !task.status)">
             Delete
           </a>
         </div>
@@ -58,14 +60,14 @@ export default defineComponent({
     const { getTasks, fetchTasks, removeTask, postTask, updateTask } = useTasks()
 
     function createNewTask () {
-      postTask({ name: state.name, description: state.description, status: 'todo', projectId: route.params.id })
+      postTask({ name: state.name, description: state.description, status: false, projectId: route.params.id })
       state.name = ''
       state.description = ''
     }
 
     // find better name
-    const switchTask = (id: string) => {
-      updateTask(id, { status: 'done' })
+    const switchTask = (id: string, done: boolean) => {
+      updateTask(id, { status: done })
     }
 
     getProject(route.params.id)
