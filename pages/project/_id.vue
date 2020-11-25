@@ -1,26 +1,43 @@
 <template>
   <div class="project">
-    This is a specific project page
-    <div>{{ project.name }}</div>
-    <div>{{ project.description }}</div>
-    <div v-for="task in tasks" :key="task._id">
-      {{ task.name }} {{ task.status }}
-      <div @click="switchTask(task._id)">
-        0
-      </div>
-      <div @click="removeTask(task._id)">
-        X
+    <div class="title">
+      {{ project.name }}
+    </div>
+    <div class="subtitle">
+      {{ project.description }}
+    </div>
+    <div class="card-wrapper">
+      <div v-for="task in tasks" :key="task._id" class="card">
+        <div class="card-content">
+          <div class="title is-4">
+            {{ task.name }}
+          </div>
+          <div class="subtitle is-6">
+            {{ task.status }}
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="card-footer-item" @click="switchTask(task._id)">
+            Edit
+          </a>
+          <a href="#" class="card-footer-item" @click="removeTask(task._id)">
+            Delete
+          </a>
+        </div>
       </div>
     </div>
-
-    <form @submit.prevent="createNewTask()">
-      <label for="name">Nom de la tâche</label>
-      <input v-model="name" type="text">
-      <label for="description">Description de la tâche</label>
-      <input v-model="description" type="text">
-      <b-button native-type="submit">
-        Valider
-      </b-button>
+    <form @submit.prevent="createNewTask">
+      <b-field label="Nom">
+        <b-input v-model="name" type="text" />
+      </b-field>
+      <b-field label="Decription" type="textarea">
+        <b-input v-model="description" type="text" />
+      </b-field>
+      <b-button
+        tag="input"
+        native-type="submit"
+        value="Créer"
+      />
     </form>
   </div>
 </template>
@@ -68,5 +85,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.card-wrapper {
+  width: 100%;
+  margin: 0 auto
+}
 
+.card {
+  width: 20%;
+  margin: 10px 20px;
+  display: inline-block;
+}
+
+  form {
+    width: 45%;
+    margin: 30px auto;
+  }
 </style>

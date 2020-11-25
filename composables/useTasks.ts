@@ -16,7 +16,6 @@ export default function useTasks () {
   const fetchTasks = (projectId: string | string[]) => {
     state.loading = true
     search(collection, { projectId }).then((res: AxiosResponse) => {
-      console.log(res)
       tasks.value = res.data.data
       state.loading = false
     })
