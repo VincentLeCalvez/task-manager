@@ -3,7 +3,7 @@ import { ref, computed, reactive } from '@nuxtjs/composition-api'
 import { Project } from '@/models/Project'
 import { search, searchOne, post, removeOne } from '@/utils/crud'
 
-import { DialogProgrammatic as Dialog } from 'buefy'
+import { DialogProgrammatic as Dialog, SnackbarProgrammatic as Snackbar } from 'buefy'
 
 const projects = ref<Project[]>([])
 const project = ref({})

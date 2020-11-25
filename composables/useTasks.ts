@@ -13,9 +13,10 @@ export default function useTasks () {
     error: undefined
   })
 
-  const fetchTasks = async (projectId: string | string[]) => {
+  const fetchTasks = (projectId: string | string[]) => {
     state.loading = true
     search(collection, { projectId }).then((res: AxiosResponse) => {
+      console.log(res)
       tasks.value = res.data.data
       state.loading = false
     })
@@ -25,7 +26,7 @@ export default function useTasks () {
   const removeTask = async (id: string) => {
     state.loading = true
     const res = await removeOne(collection, id)
-    tasks.value = tasks.value.filter(t => t._id != res.data.data._id)
+    tasks.value = tasks.value.filter(t => t._id !== res.data.data._id)
     state.loading = false
   }
 

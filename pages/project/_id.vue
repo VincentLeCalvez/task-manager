@@ -40,7 +40,7 @@ export default defineComponent({
     const { getProject, selectedProject } = useProjects()
     const { getTasks, fetchTasks, removeTask, postTask, updateTask } = useTasks()
 
-    function createNewTask() {
+    function createNewTask () {
       postTask({ name: state.name, description: state.description, status: 'todo', projectId: route.params.id })
       state.name = ''
       state.description = ''
